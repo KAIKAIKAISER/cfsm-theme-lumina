@@ -299,13 +299,13 @@ export function getServerExpiryInfo(server, lang = 'zh', now = Date.now()) {
  * - 0：有效数据（0ms 或 0% 丢包） -> 必须正常显示
  */
 export const PING_LINE_DEFINITIONS = [
-  { key: 'ct', pingField: 'ping_ct', lossField: 'loss_ct', configNameField: 'custom_ct_name', defaultLabel: '电信', color: '#38bdf8' },
-  { key: 'cu', pingField: 'ping_cu', lossField: 'loss_cu', configNameField: 'custom_cu_name', defaultLabel: '联通', color: '#fb923c' },
-  { key: 'cm', pingField: 'ping_cm', lossField: 'loss_cm', configNameField: 'custom_cm_name', defaultLabel: '移动', color: '#34d399' },
+  { key: 'ct', pingField: 'ping_ct', lossField: 'loss_ct', configNameField: 'custom_ct_name', defaultLabel: '电信 V4', color: '#38bdf8' },
+  { key: 'cu', pingField: 'ping_cu', lossField: 'loss_cu', configNameField: 'custom_cu_name', defaultLabel: '联通 V4', color: '#fb923c' },
+  { key: 'cm', pingField: 'ping_cm', lossField: 'loss_cm', configNameField: 'custom_cm_name', defaultLabel: '移动 V4', color: '#34d399' },
+  { key: 'node_1', pingField: 'ping_node_1', lossField: 'loss_node_1', configNameField: 'node_1_name', defaultLabel: '电信 V6', color: '#f472b6' },
+  { key: 'node_2', pingField: 'ping_node_2', lossField: 'loss_node_2', configNameField: 'node_2_name', defaultLabel: '联通 V6', color: '#facc15' },
+  { key: 'node_3', pingField: 'ping_node_3', lossField: 'loss_node_3', configNameField: 'node_3_name', defaultLabel: '移动 V6', color: '#2dd4bf' },
   { key: 'bd', pingField: 'ping_bd', lossField: 'loss_bd', configNameField: 'custom_bd_name', defaultLabel: 'BGP', color: '#a78bfa' },
-  { key: 'node_1', pingField: 'ping_node_1', lossField: 'loss_node_1', configNameField: 'node_1_name', defaultLabel: 'Node 1', color: '#f472b6' },
-  { key: 'node_2', pingField: 'ping_node_2', lossField: 'loss_node_2', configNameField: 'node_2_name', defaultLabel: 'Node 2', color: '#facc15' },
-  { key: 'node_3', pingField: 'ping_node_3', lossField: 'loss_node_3', configNameField: 'node_3_name', defaultLabel: 'Node 3', color: '#2dd4bf' },
   { key: 'node_4', pingField: 'ping_node_4', lossField: 'loss_node_4', configNameField: 'node_4_name', defaultLabel: 'Node 4', color: '#fb7185' }
 ]
 
@@ -335,7 +335,7 @@ export function extractConfiguredPingLines(server, siteConfig = {}, historyRows 
 
     // Check if window or history has non-false points for this line
     let hasWindowData = false
-    if (['ct', 'cu', 'cm', 'bd'].includes(def.key)) {
+    if (Array.isArray(pingWindow) && pingWindow.length > 0) {
       hasWindowData = pingWindow.some(pt => !isUnconfiguredPingValue(pt?.[def.key]))
     }
     let hasHistoryData = false
@@ -351,7 +351,7 @@ export function extractConfiguredPingLines(server, siteConfig = {}, historyRows 
 
     // Build window buckets if available (for homepage 2h window strip)
     const buckets = []
-    if (['ct', 'cu', 'cm', 'bd'].includes(def.key) && pingWindow.length > 0) {
+    if (Array.isArray(pingWindow) && pingWindow.length > 0) {
       const lossMap = new Map()
       for (const lp of lossWindow) {
         if (lp && lp.ts) lossMap.set(lp.ts, normalizePingMetricValue(lp[def.key]))

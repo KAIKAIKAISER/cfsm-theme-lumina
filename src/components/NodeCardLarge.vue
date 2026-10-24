@@ -274,7 +274,7 @@ const trafficInfo = computed(() => getTrafficQuotaInfo(props.server))
 
 const visiblePingLines = computed(() => {
   const all = extractConfiguredPingLines(props.server, state.siteConfig)
-  const limit = Math.max(1, Math.min(8, Number(state.themeOptions.pingLinesLimit) || 4))
+  const limit = Math.max(1, Math.min(8, Number(state.themeOptions.pingLinesLimit) || 6))
   return all.slice(0, limit)
 })
 

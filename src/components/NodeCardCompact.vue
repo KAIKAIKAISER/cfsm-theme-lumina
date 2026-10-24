@@ -58,7 +58,7 @@
     <!-- Compact Ping Badges -->
     <div v-if="pingLines.length > 0 && state.themeOptions.showPingStrip" class="badge-row tabular-nums">
       <span
-        v-for="line in pingLines.slice(0, 3)"
+        v-for="line in pingLines.slice(0, 6)"
         :key="line.key"
         class="mini-badge"
         :class="getPingLatencyTone(line.ping, line.loss) !== 'normal' ? `tone-${getPingLatencyTone(line.ping, line.loss)}` : ''"

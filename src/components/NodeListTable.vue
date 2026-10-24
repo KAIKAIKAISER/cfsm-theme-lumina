@@ -86,7 +86,7 @@
           <td>
             <div style="display: flex; gap: 4px;">
               <span
-                v-for="line in extractConfiguredPingLines(srv, state.siteConfig).slice(0, 3)"
+                v-for="line in extractConfiguredPingLines(srv, state.siteConfig).slice(0, 6)"
                 :key="line.key"
                 class="mini-badge"
               >

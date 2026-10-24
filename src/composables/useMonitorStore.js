@@ -34,7 +34,7 @@ export const DEFAULT_THEME_OPTIONS = {
   showSpecsOnCard: true,
   showIpBadges: true,
   showPingStrip: true,
-  pingLinesLimit: 4          // 1 - 8
+  pingLinesLimit: 6          // 1 - 8 (default 6 to show 3-net V4 + V6)
 }
 
 const state = reactive({
@@ -168,6 +168,10 @@ function recomputeThemeOptions() {
     ...(state.siteConfig.preferred_theme ? { themeMode: state.siteConfig.preferred_theme } : {}),
     ...siteOpts,
     ...localOpts
+  }
+  // Auto-upgrade legacy default limit (4) to 6 so 3-net V4/V6 show seamlessly without manual settings change
+  if (!localOpts.pingLinesLimit || localOpts.pingLinesLimit === 4) {
+    merged.pingLinesLimit = Math.max(6, Number(merged.pingLinesLimit) || 6)
   }
   state.themeOptions = merged
   applyThemeAttributesToDom()
