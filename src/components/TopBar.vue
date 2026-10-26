@@ -1,10 +1,11 @@
 <template>
   <header class="glass-panel top-bar">
-    <div class="brand-group" @click="goHome">
-      <div class="brand-logo-orb">L</div>
-      <div>
+    <div class="top-nav-main">
+      <div class="brand-group" @click="goHome">
+        <div class="brand-logo-orb">L</div>
         <div class="brand-title">{{ displayTitle }}</div>
       </div>
+
       <div
         class="ws-badge"
         :class="{
@@ -67,18 +68,18 @@
         <span>{{ state.effectiveColorScheme === 'dark' ? '🌙' : '☀️' }}</span>
       </button>
 
-      <button type="button" class="icon-btn" @click="toggleLanguage">
+      <button type="button" class="icon-btn" @click="toggleLanguage" :title="state.lang === 'zh' ? 'English' : '简体中文'">
         <span>{{ state.lang === 'zh' ? 'EN' : '中' }}</span>
       </button>
 
-      <button type="button" class="icon-btn" @click="state.settingsDrawerOpen = true">
+      <button type="button" class="icon-btn" @click="state.settingsDrawerOpen = true" :title="t.themeSettings">
         <span>⚙️</span>
-        <span>{{ t.themeSettings }}</span>
+        <span class="btn-text">{{ t.themeSettings }}</span>
       </button>
 
-      <a class="icon-btn" :href="adminUrl">
+      <a class="icon-btn" :href="adminUrl" :title="t.adminPanel">
         <span>🛡️</span>
-        <span>{{ t.adminPanel }}</span>
+        <span class="btn-text">{{ t.adminPanel }}</span>
       </a>
     </div>
   </header>
